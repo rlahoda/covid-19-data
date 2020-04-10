@@ -71,6 +71,11 @@ body {
   justify-content: center;
 }
 
+.notation {
+  font-size: 11px;
+  color: var(--primary-dark);
+}
+
 @import "./partials/card-grid";
 @import "./partials/data-card";
 @import "./partials/chart";

@@ -12,12 +12,7 @@
   </head>
   <body>
     <header>
-      <div class="header-section">
-        <p>State data courtesy of the NY Times</p>
-        <a href="https://github.com/nytimes/covid-19-data"
-          >Access the raw data</a
-        >
-      </div>
+      <div class="header-section"></div>
       <div class="header-section">
         <h1>Covid-19 Data in the United States</h1>
         <h2>View statistics by state</h2>
@@ -67,14 +62,14 @@
           id="casesPop-select"
           class="selected-item js-data-select-button"
         >
-          Cases % of Pop
+          Cases % of Pop<sup>*</sup>
         </button>
         <button
           value="deathsPop"
           id="deathsPop-select"
           class="selected-item js-data-select-button"
         >
-          Deaths % of Pop
+          Deaths % of Pop<sup>*</sup>
         </button>
       </div>
       <div class="chart-container">
@@ -97,7 +92,18 @@
         </div>
         <div class="chart__selected-items" id="chartSelected"></div>
       </div>
-      <!-- chart -->
+      <p class="notation">
+        <i
+          ><sup>*</sup>Please note: Population data is based on US Census
+          estimated population data for 2019.</i
+        >
+      </p>
+      <p class="notation">
+        <i
+          >Data courtesy of the NY Times.
+          <a href="https://github.com/nytimes/covid-19-data">Source</a></i
+        >
+      </p>
     </section>
     <section class="cards-section">
       <div class="card-sort__container">
