@@ -26,8 +26,6 @@ def move_convert():
             fileData = (
                 "export const states ="
                 + statesStr
-                + "; export const counties = "
-                + countyStr
                 + "; export const countries = "
                 + countriesStr
             )
