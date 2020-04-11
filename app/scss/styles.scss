@@ -71,6 +71,11 @@ body {
   justify-content: center;
 }
 
+strong {
+  font-family: benton-sans, sans-serif;
+  font-weight: 600;
+}
+
 .notation {
   font-size: 11px;
   color: var(--primary-dark);
@@ -78,6 +83,10 @@ body {
 
 hr {
   width: 100%;
+}
+
+p {
+  padding: 10px 0;
 }
 
 @import "./partials/card-grid";
