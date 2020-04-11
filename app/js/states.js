@@ -6,6 +6,12 @@ let dataItems = Object.keys(states.states);
 let sortParam = "name";
 let sortOrder = "az";
 
+Chart.scaleService.updateScaleDefaults("linear", {
+  ticks: {
+    min: 0,
+  },
+});
+
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -155,7 +161,11 @@ function dataCards() {
             <div class="data-card__stats-container">
               <span class="data-card__stats">Total Deaths:</span
               ><span class="data-card__stats data-card__stats--highlighted"
-                >${numberWithCommas(state.deaths)}</span
+                >${
+                  state.deaths
+                    ? numberWithCommas(state.deaths)
+                    : "Not Available"
+                }</span
               >
             </div>
             <div class="data-card__stats-container">

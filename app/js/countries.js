@@ -9,7 +9,11 @@ let sortOrder = "az";
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
+Chart.scaleService.updateScaleDefaults("linear", {
+  ticks: {
+    min: 0,
+  },
+});
 const ctx = document.getElementById("dataChart").getContext("2d");
 const chart = new Chart(ctx, {
   // The type of chart we want to create
@@ -40,9 +44,9 @@ const chart = new Chart(ctx, {
 
 function button(id, color) {
   const str = id.replace(/\s+/g, "-").toLowerCase();
-  const label = id.replace(/_/g, ' ');
+
   return `<button value="${id}" id="select-${str}"class="selected-item js-clear-button"style="border:solid 3px ${color};">
-  ${label}
+  ${id}
   <span class="selected-item__icon" >
   <?xml version="1.0" encoding="utf-8"?>
   <svg
@@ -72,13 +76,6 @@ L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
 }
 
 function selectionGenerate() {
-  // const buttonsArr = [];
-  // dataItems.map(i => {
-  //   buttonsArr.push(button(i));
-  // });
-
-  // const selectedContainer = document.querySelector("#chartSelected");
-  // selectedContainer.innerHTML = buttonsArr.join("");
   const clearButtons = document.querySelectorAll(".js-clear-button");
 
   for (const button of clearButtons) {
@@ -97,7 +94,7 @@ function dataGenerate(data) {
       y: dataItem,
     };
   });
-  const label = data.name.replace(/_/g, ' ');
+  const label = data.name.replace(/_/g, " ");
   return {
     label: label,
     data: processedDataArr,
@@ -141,12 +138,12 @@ function dataCards() {
     if (state.firstDeath) {
       firstDeathDate = moment(state.firstDeath).format("MMMM D, YYYY");
     }
-    const stateName = state.name.replace(/_/g, ' ');
+    const stateName = state.name.replace(/_/g, " ");
     statesDisplay += `
           <div class="data-card" id="${state.name}">
           <details class="data-card__contents" open>
             <summary class="data-card__header">
-              <h1 class="data-card__data-title">${stateName}</h1>
+              <h1 class="data-card__data-title">${state.name}</h1>
             </summary>
             <div class="data-card__stats-container">
               <span class="data-card__stats">Total Cases:</span>
@@ -157,7 +154,11 @@ function dataCards() {
             <div class="data-card__stats-container">
               <span class="data-card__stats">Total Deaths:</span
               ><span class="data-card__stats data-card__stats--highlighted"
-                >${numberWithCommas(state.deaths)}</span
+                >${
+                  state.deaths
+                    ? numberWithCommas(state.deaths)
+                    : "Not Available"
+                }</span
               >
             </div>
             <div class="data-card__stats-container">
@@ -183,7 +184,11 @@ function dataCards() {
             <div class="data-card__stats-container">
             <span class="data-card__stats">Population:</span
             ><span class="data-card__stats data-card__stats--highlighted"
-              >${state.population > 0 ? numberWithCommas(state.population) : "Not Available"}
+              >${
+                state.population > 0
+                  ? numberWithCommas(state.population)
+                  : "Not Available"
+              }
           </div>
           <div class="data-card__stats-container">
           <span class="data-card__stats">% Pop Cases:</span
