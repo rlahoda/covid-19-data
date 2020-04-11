@@ -1,11 +1,20 @@
 import wget
 import csv
 import json
+import re
 
 # print("Beginning file download with wget module")
 
 # url = "https://opendata.ecdc.europa.eu/covid19/casedistribution/csv"
 # wget.download(url, "world-countries.csv")
+
+
+def stringClean(s):
+
+    # Remove all non-word characters (everything except numbers and letters)
+    s = re.sub(r"[^\w\s]", "", s)
+    string = s.replace("_", " ")
+    return string
 
 
 def countries_parse():
@@ -26,7 +35,7 @@ def countries_parse():
                 if int(row[2]) < 10:
                     month = "0" + month
                 year = row[3]
-                state = row[6]
+                state = stringClean(row[6])
                 dateStr = year + "-" + month + "-" + day + "T12:00:00Z"
                 newCases = int(row[4])
                 newDeaths = int(row[5])
@@ -112,7 +121,7 @@ def countries_parse():
                             "name": state,
                             "firstCase": dateStr,
                             "cases": newCases,
-                            "deaths":0,
+                            "deaths": 0,
                             "population": population if population > 0 else 0,
                             "casesPop": float((newCases / population) * 100)
                             if population > 0 and newCases > 0

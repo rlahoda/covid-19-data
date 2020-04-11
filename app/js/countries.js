@@ -44,9 +44,9 @@ const chart = new Chart(ctx, {
 
 function button(id, color) {
   const str = id.replace(/\s+/g, "-").toLowerCase();
-  const label = id.replace(/_/g, " ");
+
   return `<button value="${id}" id="select-${str}"class="selected-item js-clear-button"style="border:solid 3px ${color};">
-  ${label}
+  ${id}
   <span class="selected-item__icon" >
   <?xml version="1.0" encoding="utf-8"?>
   <svg
@@ -143,7 +143,7 @@ function dataCards() {
           <div class="data-card" id="${state.name}">
           <details class="data-card__contents" open>
             <summary class="data-card__header">
-              <h1 class="data-card__data-title">${stateName}</h1>
+              <h1 class="data-card__data-title">${state.name}</h1>
             </summary>
             <div class="data-card__stats-container">
               <span class="data-card__stats">Total Cases:</span>
