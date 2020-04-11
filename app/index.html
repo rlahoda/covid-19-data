@@ -1,9 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="View Covid-19 data over time and current totals. Data includes: Total cases, total deaths, new cases, new deaths, cases % of population, deaths % of population"
+    />
+    <meta name="robots" content="index,follow,noodp" />
+    <meta name="googlebot" content="index,follow" />
+    <meta name="url" content="https://covid-19-graph.netlify.com/" />
+
+    <meta property="og:url" content="https://covid-19-graph.netlify.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Covid-19 Data - US States" />
+    <meta
+      property="og:image"
+      content="https://covid-19-graph.netlify.com/covid-usa-meta.jpg"
+    />
+    <meta
+      property="og:description"
+      content="View Covid-19 data over time and current totals. Data includes: Total cases, total deaths, new cases, new deaths, cases % of population, deaths % of population"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <!-- <meta name="twitter:site" content="@site_account"> -->
+    <meta name="twitter:creator" content="@rmlahoda" />
+    <meta name="twitter:url" content="https://covid-19-graph.netlify.com/" />
+    <meta name="twitter:title" content="Covid-19 Data - US States" />
+    <meta
+      name="twitter:description"
+      content="View Covid-19 data over time and current totals. Data includes: Total cases, total deaths, new cases, new deaths, cases % of population, deaths % of population"
+    />
+    <meta
+      name="twitter:image"
+      content="https://covid-19-graph.netlify.com/covid-usa-meta.jpg"
+    />
+    <meta itemprop="name" content="Covid-19 Data - US States" />
+    <meta
+      itemprop="description"
+      content="View Covid-19 data over time and current totals. Data includes: Total cases, total deaths, new cases, new deaths, cases % of population, deaths % of population"
+    />
+    <meta
+      itemprop="image"
+      content="https://covid-19-graph.netlify.com/covid-usa-meta.jpg"
+    />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Covid-19 Data - US States</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/pmr7ssp.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="header-sub-bar">
+        <div class="header-sub-bar__nav">
+          <a class="link-button-large link-button-large--active" href="/">
+         Home
+          </a>
+          <a class="link-button-large" href="/countries">
+            View Data By Country
+          </a>
+          <a class="link-button-large" href="/states">
+            View Data By State
+          </a>
+        </div>
+
+        <p>
+          <a
+            class="link-button-small"
+            href="https://github.com/rlahoda/covid-19-data"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 128 128"
+              height="1.25em"
+            >
+              <g fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M64 5.103c-33.347 0-60.388 27.035-60.388 60.388 0 26.682 17.303 49.317 41.297 57.303 3.017.56 4.125-1.31 4.125-2.905 0-1.44-.056-6.197-.082-11.243-16.8 3.653-20.345-7.125-20.345-7.125-2.747-6.98-6.705-8.836-6.705-8.836-5.48-3.748.413-3.67.413-3.67 6.063.425 9.257 6.223 9.257 6.223 5.386 9.23 14.127 6.562 17.573 5.02.542-3.903 2.107-6.568 3.834-8.076-13.413-1.525-27.514-6.704-27.514-29.843 0-6.593 2.36-11.98 6.223-16.21-.628-1.52-2.695-7.662.584-15.98 0 0 5.07-1.623 16.61 6.19C53.7 35 58.867 34.327 64 34.304c5.13.023 10.3.694 15.127 2.033 11.526-7.813 16.59-6.19 16.59-6.19 3.287 8.317 1.22 14.46.593 15.98 3.872 4.23 6.215 9.617 6.215 16.21 0 23.194-14.127 28.3-27.574 29.796 2.167 1.874 4.097 5.55 4.097 11.183 0 8.08-.07 14.583-.07 16.572 0 1.607 1.088 3.49 4.148 2.897 23.98-7.994 41.263-30.622 41.263-57.294C124.388 32.14 97.35 5.104 64 5.104z"
+                />
+                <path
+                  d="M26.484 91.806c-.133.3-.605.39-1.035.185-.44-.196-.685-.605-.543-.906.13-.31.603-.395 1.04-.188.44.197.69.61.537.91zm-.743-.55M28.93 94.535c-.287.267-.85.143-1.232-.28-.396-.42-.47-.983-.177-1.254.298-.266.844-.14 1.24.28.394.426.472.984.17 1.255zm-.575-.618M31.312 98.012c-.37.258-.976.017-1.35-.52-.37-.538-.37-1.183.01-1.44.373-.258.97-.025 1.35.507.368.545.368 1.19-.01 1.452zm0 0M34.573 101.373c-.33.365-1.036.267-1.552-.23-.527-.487-.674-1.18-.343-1.544.336-.366 1.045-.264 1.564.23.527.486.686 1.18.333 1.543zm0 0M39.073 103.324c-.147.473-.825.688-1.51.486-.683-.207-1.13-.76-.99-1.238.14-.477.823-.7 1.512-.485.683.206 1.13.756.988 1.237zm0 0M44.016 103.685c.017.498-.563.91-1.28.92-.723.017-1.308-.387-1.315-.877 0-.503.568-.91 1.29-.924.717-.013 1.306.387 1.306.88zm0 0M48.614 102.903c.086.485-.413.984-1.126 1.117-.7.13-1.35-.172-1.44-.653-.086-.498.422-.997 1.122-1.126.714-.123 1.354.17 1.444.663zm0 0"
+                />
+              </g>
+            </svg>
+            View on Github
+          </a>
+        </p>
+      </div>
+      <div class="header-main-bar">
+        <h1>Covid-19 Data</h1>
+        <h2>View statistics by country or by US State</h2>
+      </div>
+    </header>
+
+    <section class="main">
+      <div class="main__split">
+        <div class="main__split--container">
+          <h2>World Data</h2>
+          <p>
+            This data is courtesy of the European Centre for Disease Prevention
+            and Control. Population data comes from the World Bank. To view the
+            original source data please
+            <a
+              href="https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide"
+              >visit their site</a
+            >
+          </p>
+          <div class="main__button-container">
+            <a class="main__button" href="/countries">View the World Data</a>
+          </div>
+        </div>
+        <div class="main__split--container">
+          <h2>US State Data</h2>
+          <p>
+            This data is courtesy of the New York Times. Population data comes
+            from the US Census estimated population data for 2019. To view the
+            original Covid-19 source data please
+            <a href="https://github.com/nytimes/covid-19-data"
+              >visit the NY Times Github site</a
+            >
+            To view the original census population data, please
+            <a
+              href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html"
+              >visit the NY Times Github site</a
+            >
+          </p>
+          <div class="main__button-container">
+            <a class="main__button" href="/states">View the US State Data</a>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="main__info">
+        <h2>Purpose</h2>
+        <p>
+          The goal of this project was to give individuals a chance to view the various country and US state data available with the ability to see and compare various metrics. The idea was to allow for a more understanding ability to see how the various trends and totals mean in some level of context.
+        </p>
+        <p>There is a lot of hype and sensationalism about the pandemic and it is hard to understand what is real and what is hyperbole. The goal with this is to present the data and allow individuals to come to their own conclusions.</p>
+      </div>
+      <hr />
+      <div class="main__info">
+        <h2>Data Processing</h2>
+        <p>
+          The data was ingested as csv files from the respective sources and
+          processed for use on this site. The <strong>"Daily New Cases"</strong> and <strong></strong>"Daily New
+          Deaths"</strong> metrics are calculated as the number of cases and deaths for
+          that specific day. <strong>"Total Daily Cases"</strong> and <strong>"Total Daily Deaths"</strong> are
+          calculated as a cumulative total of all of the previous days combined.
+        </p>
+        <p>
+          The percentage calculations are based on the total populations for the
+          respective country or state and the number of cases or deaths as a
+          percentage of that total population number.
+        </p>
+      </div>
+      <hr />
+      <div class="main__info">
+        <h2>Technical Information</h2>
+        <p>
+          This site is built using Javascript on a basic html site. There are many ways of doing this type of project and I know how to use a number of other Javascript frameworks, CSS frameworks, and other web development technologies. For this, I decided to simply use vanilla Javascript with <a href="chartjs.org/">Chart.JS</a> for the charting software. I built the styles using SASS compiled to CSS. The reason was to keep this simple. I didn't want to use a large React project, though that would have been something I'm very familiar with. I wanted to get this put together quickly and simply. There are a few <a href="https://www.python.org/">Pythong</a> scripts I use to process the data from csv to JSON then into a Javascript file for use on the site. Yes, there are probably more efficient ways to do that but the goal was quick and easy.
+        </p>
+        <p>Additional improvements will be made as time allows. If you have any interest in contributing to the site, feel free to visit the <a href="https://github.com/rlahoda/covid-19-data">Githup project page</a> to open an issue or create a pull request.</p>
+      </div>
+    </section>
+    <footer>
+      <span class="footer__text"
+        >Design ©2020 <a href="https://roblahoda.com">Rob Lahoda</a></span
+      >
+    </footer>
+  </body>
 </html>
