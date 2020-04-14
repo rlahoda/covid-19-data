@@ -18,6 +18,7 @@ def stringClean(s):
 
 
 def countries_parse():
+    print("Starting world data")
     # Open file
     with open("world-countries.csv") as csvfile:
         csvData = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -141,9 +142,10 @@ def countries_parse():
                                 }
                             ],
                         }
-
+        print("data parsed")
         with open("world-countries.json", "r+") as jsonfile:
             json.dump(jsonData, jsonfile)
+            print("World data json created")
 
 
 countries_parse()

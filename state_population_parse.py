@@ -1,7 +1,7 @@
 import json
 import csv
 
-
+# This file is only needed to parse through the US State population data and should not need to be used more than once
 def states_population_parse():
     # Open file
 
@@ -17,7 +17,7 @@ def states_population_parse():
             estimated = int(row[3])
             jsonData[state] = {"name": state, "census": census, "estimated": estimated}
 
-    with open("state-population.json", "r+") as jsonfile:
+    with open("state-population.json", "w") as jsonfile:
         json.dump(jsonData, jsonfile)
 
 

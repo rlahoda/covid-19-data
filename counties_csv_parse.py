@@ -3,6 +3,7 @@ import csv
 
 
 def counties_parse():
+    print("Starting US counties data")
     # Open csv file
     with open("us-counties.csv") as csvfile:
         csvData = csv.reader(csvfile, delimiter=",", quotechar="|")
@@ -78,5 +79,7 @@ def counties_parse():
                             }
                         },
                     }
+        print("data parsed")
         with open("us-counties.json", "r+") as jsonfile:
             json.dump(jsonData, jsonfile)
+            print("US Counties data json created")
