@@ -1,4 +1,5 @@
 import { countries } from "./data.js";
+import { dataCard } from "./shared.js";
 import sort from "./sort.js";
 
 let dataParam = "cases";
@@ -86,7 +87,11 @@ function selectionGenerate() {
 function dataGenerate(data) {
   const processedDataArr = data.data.map(d => {
     let dataItem = d[dataParam];
-    if (dataParam === "casesPop" || dataParam === "deathsPop") {
+    if (
+      dataParam === "casesPop" ||
+      dataParam === "deathsPop" ||
+      dataParam === "mortality"
+    ) {
       dataItem = d[dataParam].toFixed(4);
     }
     return {
@@ -133,86 +138,7 @@ function dataCards() {
   const sortedStates = sort(statesArr, sortParam, sortOrder);
   let statesDisplay = "";
   sortedStates.map(state => {
-    const firstCaseDate = moment(state.firstCase).format("MMMM D, YYYY");
-    let firstDeathDate = "";
-    if (state.firstDeath) {
-      firstDeathDate = moment(state.firstDeath).format("MMMM D, YYYY");
-    }
-    const stateName = state.name.replace(/_/g, " ");
-    statesDisplay += `
-          <div class="data-card" id="${state.name}">
-          <details class="data-card__contents" open>
-            <summary class="data-card__header">
-              <h1 class="data-card__data-title">${state.name}</h1>
-            </summary>
-            <div class="data-card__stats-container">
-              <span class="data-card__stats">Total Cases:</span>
-              <span class="data-card__stats data-card__stats--highlighted"
-                >${numberWithCommas(state.cases)}</span
-              >
-            </div>
-            <div class="data-card__stats-container">
-              <span class="data-card__stats">Total Deaths:</span
-              ><span class="data-card__stats data-card__stats--highlighted"
-                >${
-                  state.deaths
-                    ? numberWithCommas(state.deaths)
-                    : "Not Available"
-                }</span
-              >
-            </div>
-            <div class="data-card__stats-container">
-              <span class="data-card__stats">First Case:</span
-              ><span class="data-card__stats data-card__stats--highlighted"
-                >${firstCaseDate}
-            </div>
-            <div class="data-card__stats-container">
-              <span class="data-card__stats">First Death:</span
-              >${
-                state.firstDeath
-                  ? `
-                  <span class="data-card__stats data-card__stats--highlighted">
-                  ${firstDeathDate}</span>
-                 `
-                  : `
-                  <span class="data-card__stats">
-                    (none reported)
-                  </span>
-                `
-              }
-            </div>
-            <div class="data-card__stats-container">
-            <span class="data-card__stats">Population:</span
-            ><span class="data-card__stats data-card__stats--highlighted"
-              >${
-                state.population > 0
-                  ? numberWithCommas(state.population)
-                  : "Not Available"
-              }
-          </div>
-          <div class="data-card__stats-container">
-          <span class="data-card__stats">% Pop Cases:</span
-          ><span class="data-card__stats data-card__stats--highlighted"
-            >${
-              state.casesPop > 0
-                ? state.casesPop.toFixed(4) + "%"
-                : "Not Available"
-            }
-        </div>
-        <div class="data-card__stats-container">
-        <span class="data-card__stats">% Pop Deaths:</span
-        ><span class="data-card__stats data-card__stats--highlighted"
-          >${
-            state.deathsPop > 0
-              ? state.deathsPop.toFixed(4) + "%"
-              : "Not Available"
-          }
-      </div>
-          </details>
-          <button class="data-card__select-button js-select-button" value="${
-            state.name
-          }">View on chart</button>
-          </div>`;
+    statesDisplay += dataCard(state);
   });
   const cardsContainer = document.querySelector("#cards-container");
   cardsContainer.innerHTML = statesDisplay;

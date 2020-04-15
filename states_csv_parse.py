@@ -59,6 +59,9 @@ def states_parse():
                         if population > 0 and deaths > 0
                         else 0
                     )
+                    jsonData["states"][state]["mortality"] = (
+                        float((deaths / cases) * 100) if cases > 0 and deaths > 0 else 0
+                    )
 
                     jsonData["states"][state]["data"].append(
                         {
@@ -67,6 +70,9 @@ def states_parse():
                             "deaths": deaths,
                             "newCases": newCases,
                             "newDeaths": newDeaths,
+                            "mortality": float((deaths / cases) * 100)
+                            if cases > 0 and deaths > 0
+                            else 0,
                             "casesPop": float((cases / population)) * 100
                             if population > 0 and cases > 0
                             else 0,
@@ -106,6 +112,7 @@ def states_parse():
                             "deathsPop": float((deaths / population) * 100)
                             if population > 0 and deaths > 0
                             else 0,
+                            "mortality": float((deaths / cases) * 100),
                             "data": [
                                 {
                                     "date": date + "T12:00:00Z",
@@ -113,6 +120,7 @@ def states_parse():
                                     "deaths": deaths,
                                     "newCases": 0,
                                     "newDeaths": deaths,
+                                    "mortality": float((deaths / cases) * 100),
                                     "casesPop": float((cases / population) * 100)
                                     if population > 0 and cases > 0
                                     else 0,
@@ -139,6 +147,7 @@ def states_parse():
                             if population > 0 and cases > 0
                             else 0,
                             "deathsPop": 0,
+                            "mortality": 0,
                             "data": [
                                 {
                                     "date": date + "T12:00:00Z",
@@ -146,6 +155,7 @@ def states_parse():
                                     "deaths": deaths,
                                     "newCases": 0,
                                     "newDeaths": 0,
+                                    "mortality": 0,
                                     "casesPop": float((cases / population) * 100)
                                     if population > 0 and cases > 0
                                     else 0,
