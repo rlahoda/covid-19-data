@@ -61,7 +61,9 @@ def countries_parse():
                         if population > 0 and deaths > 0
                         else 0
                     )
-
+                    jsonData["countries"][state]["mortality"] = (
+                        float((deaths / cases) * 100) if cases > 0 and deaths > 0 else 0
+                    )
                     jsonData["countries"][state]["data"].append(
                         {
                             "date": dateStr,
@@ -69,6 +71,9 @@ def countries_parse():
                             "deaths": deaths,
                             "newCases": newCases,
                             "newDeaths": newDeaths,
+                            "mortality": float((deaths / cases) * 100)
+                            if cases > 0 and deaths > 0
+                            else 0,
                             "casesPop": float((cases / population)) * 100
                             if population > 0 and cases > 0
                             else 0,
@@ -100,6 +105,7 @@ def countries_parse():
                             "deathsPop": float((newDeaths / population) * 100)
                             if population > 0 and newDeaths > 0
                             else 0,
+                            "mortality": float((deaths / cases) * 100),
                             "data": [
                                 {
                                     "date": dateStr,
@@ -107,6 +113,7 @@ def countries_parse():
                                     "deaths": newDeaths,
                                     "newCases": newCases,
                                     "newDeaths": newDeaths,
+                                    "mortality": float((deaths / cases) * 100),
                                     "casesPop": float((newCases / population) * 100)
                                     if population > 0 and newCases > 0
                                     else 0,
@@ -128,12 +135,14 @@ def countries_parse():
                             if population > 0 and newCases > 0
                             else 0,
                             "deathsPop": 0,
+                            "mortality": 0,
                             "data": [
                                 {
                                     "date": dateStr,
                                     "cases": newCases,
                                     "deaths": newDeaths,
                                     "newCases": newCases,
+                                    "mortality": 0,
                                     "newDeaths": 0,
                                     "casesPop": float((newCases / population) * 100)
                                     if population > 0 and newCases > 0
