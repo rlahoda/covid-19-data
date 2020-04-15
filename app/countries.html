@@ -185,6 +185,13 @@
         >
           Deaths % of Pop<sup>*</sup>
         </button>
+        <button
+          value="mortality"
+          id="mortality-select"
+          class="selected-item js-data-select-button"
+        >
+          Mortality Rate
+        </button>
       </div>
       <div class="chart-container">
         <canvas id="dataChart"></canvas>
@@ -408,6 +415,32 @@
               class="sort-order-icon"
               id="deaths-pop-sort-icon"
             >
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 22 22"
+                style="enable-background: new 0 0 22 22;"
+                fill="currentColor"
+                xml:space="preserve"
+                height="1em"
+              >
+                <polygon
+                  points="18.3,10.2 11.9,16.8 11.9,0 9.1,0 9.1,16.8 2.7,10.2 2.7,14.3 10.5,22 18.3,14.3 "
+                />
+              </svg>
+            </span>
+          </button>
+          <button
+            id="mortality-sort"
+            value="mortality"
+            class="selected-item sort-selector js-sort-button"
+          >
+            Mortaity Rate<span class="sort-order-icon" id="mortality-sort-icon">
               <?xml version="1.0" encoding="utf-8"?>
               <svg
                 version="1.1"
