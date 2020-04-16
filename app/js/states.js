@@ -1,5 +1,5 @@
 import { states } from "./data.js";
-import { dataCard } from "./shared.js";
+import { dataCard, button, dataGenerate } from "./shared.js";
 import sort from "./sort.js";
 
 let dataParam = "cases";
@@ -12,10 +12,6 @@ Chart.scaleService.updateScaleDefaults("linear", {
     min: 0,
   },
 });
-
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
 const ctx = document.getElementById("dataChart").getContext("2d");
 const chart = new Chart(ctx, {
@@ -45,38 +41,6 @@ const chart = new Chart(ctx, {
   },
 });
 
-function button(id, color) {
-  const str = id.replace(/\s+/g, "-").toLowerCase();
-  return `<button value="${id}" id="select-${str}"class="selected-item js-clear-button"style="border:solid 3px ${color};">
-  ${id}
-  <span class="selected-item__icon" >
-  <?xml version="1.0" encoding="utf-8"?>
-  <svg
-    version="1.1"
-    id="Layer_1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
-    viewBox="0 0 10 10"
-    style="enable-background: new 0 0 10 10;"
-    xml:space="preserve"
-    height="1em"
-  >
-    <style type="text/css">
-      .st0 {
-        fill: currentColor;
-      }
-    </style>
-    <path
-      class="st0"
-      d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
-L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
-    />
-  </svg></span>
-</button>`;
-}
-
 function selectionGenerate() {
   const clearButtons = document.querySelectorAll(".js-clear-button");
 
@@ -85,27 +49,16 @@ function selectionGenerate() {
   }
 }
 
-function dataGenerate(data) {
-  const processedDataArr = data.data.map(d => {
-    let dataItem = d[dataParam];
-    if (
-      dataParam === "casesPop" ||
-      dataParam === "deathsPop" ||
-      dataParam === "mortality"
-    ) {
-      dataItem = d[dataParam].toFixed(4);
-    }
-    return {
-      x: new Date(d.date),
-      y: dataItem,
-    };
+function checkGenerate() {
+  const addButtons = document.querySelectorAll(".js-card-select-button-check");
+  for (const button of addButtons) {
+    button.classList.add("data-card__select-button--check-hidden");
+  }
+  dataItems.map(i => {
+    const str = i.replace(/\s+/g, "-").toLowerCase();
+    const card = document.querySelector(`#${str}-check`);
+    card.classList.remove("data-card__select-button--check-hidden");
   });
-  return {
-    label: data.name,
-    data: processedDataArr,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    borderColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
-  };
 }
 
 function chartGenerate() {
@@ -113,7 +66,7 @@ function chartGenerate() {
   const buttonsArr = [];
   const chartData = sortedData.map(state => {
     const stats = states.states[state];
-    const stateData = dataGenerate(stats);
+    const stateData = dataGenerate(stats, dataParam);
 
     buttonsArr.push(button(state, stateData.borderColor));
     return stateData;
@@ -123,6 +76,7 @@ function chartGenerate() {
   selectedContainer.innerHTML = buttonsArr.join("");
   chart.update();
   selectionGenerate();
+  checkGenerate();
 }
 
 function dataSelectButtons() {
@@ -147,6 +101,7 @@ function dataCards() {
   for (const button of cardsButtons) {
     button.addEventListener("click", dataAdd);
   }
+  checkGenerate();
 }
 
 function sortSelectButtons() {
@@ -189,7 +144,7 @@ function dataAdd(event) {
     chartGenerate();
   } else if (!dataItems.includes(id)) {
     const stats = states.states[id];
-    const dataSeries = dataGenerate(stats);
+    const dataSeries = dataGenerate(stats, dataParam);
     const dataSets = [...chart.data.datasets];
     dataSets.push(dataSeries);
     chart.data.datasets = sort(dataSets, "label", "az");
@@ -230,7 +185,7 @@ function dataClear(event) {
     const str = id.replace(/\s+/g, "-").toLowerCase();
     const button = document.querySelector(`#select-${str}`);
     button.remove();
-    // chartGenerate();
+    checkGenerate();
   } else if (id === "clear") {
     chart.data.datasets = [];
     chart.update();

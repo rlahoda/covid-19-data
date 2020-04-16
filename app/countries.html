@@ -219,8 +219,8 @@
     </section>
     <section class="cards-section">
       <div class="card-sort__container">
-        <div class="card-sort">
-          Sort Countries By:
+        <div class="shadow-container card-sort">
+          <h3>Sort Countries By:</h3>
           <button
             id="name-sort"
             value="name"
@@ -462,35 +462,11 @@
             </span>
           </button>
         </div>
-        <div class="card-sort">
-          Filter Countries By:
-          <button
-            id="name-sort"
-            value="name"
-            class="selected-item selected-item--selected sort-selector js-sort-button"
-          >
-            Country Name<span class="sort-order-icon" id="name-sort-icon">
-              <?xml version="1.0" encoding="utf-8"?>
-              <svg
-                version="1.1"
-                id="Layer_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                viewBox="0 0 22 22"
-                style="enable-background: new 0 0 22 22;"
-                fill="currentColor"
-                xml:space="preserve"
-                height="1em"
-              >
-                <polygon
-                  points="18.3,10.2 11.9,16.8 11.9,0 9.1,0 9.1,16.8 2.7,10.2 2.7,14.3 10.5,22 18.3,14.3 "
-                />
-              </svg>
-            </span>
-          </button>
-
+        <!-- <div class="shadow-container card-filters">
+          <h3 class="filters-header">
+            Filter Country Display:
+          </h3>
+          <div id="card-filters-container" class="card-filters-container"></div>
           <button
             value="filtered"
             id="remove-item"
@@ -498,7 +474,7 @@
           >
             View These Countries On Chart
           </button>
-        </div>
+        </div> -->
       </div>
       <div id="cards-container" class="cards-container"></div>
     </section>

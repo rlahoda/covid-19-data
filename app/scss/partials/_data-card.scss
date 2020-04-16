@@ -115,6 +115,8 @@
   }
 
   &__select-button {
+    display: flex;
+    align-items: center;
     font-size: 0.6em;
     margin: 10px 10px 5px;
     font-family: benton-sans, sans-serif;
@@ -135,5 +137,14 @@
       background: var(--primary-color-active);
       color: var(--primary-light);
     }
+  }
+
+  &__select-button--check {
+    margin-left: 5px;
+    color: var(--alert-green-dark);
+  }
+
+  &__select-button--check-hidden {
+    display: none;
   }
 }
