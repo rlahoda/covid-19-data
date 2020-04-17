@@ -79,7 +79,7 @@ def countries_parse():
                             + dataArr[dataLength - 4]["newCases"]
                         ) / 5
                         avgNewDeaths = (
-                            newCases
+                            newDeaths
                             + dataArr[dataLength - 1]["newDeaths"]
                             + dataArr[dataLength - 2]["newDeaths"]
                             + dataArr[dataLength - 3]["newDeaths"]
