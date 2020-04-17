@@ -8,10 +8,11 @@ import {
 } from "./shared.js";
 import sort from "./sort.js";
 
-const initialData = Object.values(countries.countries);
+const initialData = countries.countries;
+const initialDataArr = Object.values(initialData);
+let dataItems = Object.keys(countries.countries);
 let dataParam = ["cases"];
 let multiData = false;
-let dataItems = Object.keys(countries.countries);
 let sortParam = "name";
 let sortOrder = "az";
 let dataFilters = {
@@ -36,7 +37,7 @@ function setInitialLimits() {
   let casesMax = 0;
   let deathsMax = 0;
 
-  initialData.map(c => {
+  initialDataArr.map(c => {
     if (c.population > popMax) {
       popMax = c.population;
     }
@@ -127,7 +128,7 @@ function chartGenerate() {
     const borderColor = colorGenerate();
     buttonsArr.push(button(state, borderColor));
     dataParam.map(param => {
-      const stats = countries.countries[state];
+      const stats = initialData[state];
       const stateData = dataGenerate(stats, param, borderColor);
       chartData.push(stateData);
     });
@@ -188,7 +189,7 @@ function multiDataSwap() {
 }
 
 function dataCards() {
-  const statesArr = Object.values(countries.countries);
+  const statesArr = Object.values(initialData);
   const sortedStates = sort(statesArr, sortParam, sortOrder);
   let filteredPopMin = sortedStates.filter(
     i => i.population >= dataFilters.popMin
@@ -257,11 +258,11 @@ function sortTypeSet(event) {
 function dataAdd(event) {
   const id = event.target.value;
   if (id === "all") {
-    const itemList = Object.keys(countries.countries);
+    const itemList = Object.keys(initialData);
     dataItems = itemList.sort();
     chartGenerate();
   } else if (!dataItems.includes(id)) {
-    const stats = countries.countries[id];
+    const stats = initialData[id];
     const dataSets = [...chart.data.datasets];
     dataParam.map(param => {
       const borderColor = colorGenerate();

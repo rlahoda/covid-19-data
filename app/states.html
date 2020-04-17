@@ -141,57 +141,394 @@
     <section id="chart" class="chart">
       <h3>Choose a state below to view it in the chart</h3>
       <div class="chart__data-selector">
-        <h4>Select Data To View:</h4>
-        <button
-          value="cases"
-          id="cases-select"
-          class="selected-item js-data-select-button selected-item--selected"
-        >
-          Total Daily Cases
-          <?xml version="1.0" encoding="utf-8"?>
-        </button>
-        <button
-          value="deaths"
-          id="deaths-select"
-          class="selected-item js-data-select-button"
-        >
-          Total Daily Deaths
-        </button>
-        <button
-          value="newCases"
-          id="newCases-select"
-          class="selected-item js-data-select-button"
-        >
-          Daily New Cases
-        </button>
-        <button
-          value="newDeaths"
-          id="newDeaths-select"
-          class="selected-item js-data-select-button"
-        >
-          Daily New Deaths
-        </button>
-        <button
-          value="casesPop"
-          id="casesPop-select"
-          class="selected-item js-data-select-button"
-        >
-          Cases % of Pop<sup>*</sup>
-        </button>
-        <button
-          value="deathsPop"
-          id="deathsPop-select"
-          class="selected-item js-data-select-button"
-        >
-          Deaths % of Pop<sup>*</sup>
-        </button>
-        <button
-          value="mortality"
-          id="mortality-select"
-          class="selected-item js-data-select-button"
-        >
-          Mortality Rate
-        </button>
+        <div class="data-selector__header">
+          <h4>Select Data To View:</h4>
+          <button
+            value="multiData"
+            id="select-multi-data"
+            class="selected-item data-item__icon--rotated"
+          >
+            Compare Multiple Types Of Data
+            <span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="data-selector__content">
+          <button
+            value="cases"
+            id="cases-select"
+            class="selected-item js-data-select-button selected-item--selected data-item__icon--hidden"
+          >
+            Total Daily Cases
+            <span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="casesAvg"
+            id="casesAvg-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Average Daily Cases<sup>**</sup>
+            <span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                />
+              </svg>
+            </span>
+          </button>
+          <button
+            value="deaths"
+            id="deaths-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Total Daily Deaths<span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="deathsAvg"
+            id="deathsAvg-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Average Daily Deaths<sup>**</sup>
+            <span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="newCases"
+            id="newCases-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Daily New Cases
+            <span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="newCasesAvg"
+            id="newCasesAvg-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Average New Cases<sup>**</sup>
+            <span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="newDeaths"
+            id="newDeaths-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Daily New Deaths<span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="newDeathsAvg"
+            id="newDeathsAvg-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Average New Deaths<sup>**</sup
+            ><span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="casesPop"
+            id="casesPop-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Cases % of Pop<sup>*</sup
+            ><span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="deathsPop"
+            id="deathsPop-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Deaths % of Pop<sup>*</sup
+            ><span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+          <button
+            value="mortality"
+            id="mortality-select"
+            class="selected-item js-data-select-button data-item__icon--hidden"
+          >
+            Mortality Rate<span class="data-item__icon">
+              <?xml version="1.0" encoding="utf-8"?>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 10 10"
+                style="enable-background: new 0 0 10 10;"
+                xml:space="preserve"
+                height="1em"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: currentColor;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M5,0C2.3,0,0.1,2.3,0.1,5c0,2.7,2.2,4.9,4.9,4.9S9.9,7.7,9.9,5C9.9,2.3,7.7,0,5,0z M8.2,7.4L7.4,8.2L4.9,5.8
+          L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
+                /></svg
+            ></span>
+          </button>
+        </div>
       </div>
       <div class="chart-container">
         <canvas id="dataChart"></canvas>
