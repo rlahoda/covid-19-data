@@ -159,6 +159,20 @@ export function colorGenerate() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);
 }
 
+const lineStyles = {
+  cases: { point: "circle", line: 2 },
+  casesAvg: { point: "circle", line: 4 },
+  deaths: { point: "cross", line: 2 },
+  deathsAvg: { point: "cross", line: 4 },
+  newCases: { point: "crossRot", line: 2 },
+  newCasesAvg: { point: "crossRot", line: 4 },
+  newDeaths: { point: "rect", line: 2 },
+  newDeathsAvg: { point: "rect", line: 4 },
+  casesPop: { point: "star", line: 2 },
+  deathsPop: { point: "triangle", line: 2 },
+  mortality: { point: "line", line: 2 },
+};
+
 export function dataGenerate(data, dataParam, borderColor) {
   const processedDataArr = data.data.map(d => {
     let dataItem = d[dataParam];
@@ -180,6 +194,9 @@ export function dataGenerate(data, dataParam, borderColor) {
     data: processedDataArr,
     backgroundColor: "rgba(0, 0, 0, 0)",
     borderColor: borderColor,
+    pointStyle: lineStyles[dataParam].point,
+    pointRadius: 3,
+    borderWidth: lineStyles[dataParam].line,
   };
 }
 

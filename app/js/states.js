@@ -181,10 +181,10 @@ function multiDataSwap() {
   const button = document.querySelector("#select-multi-data");
   if (multiData) {
     button.classList.add("selected-item--selected");
-    button.classList.remove(" data-item__icon--rotated");
+    button.classList.remove("data-item__icon--rotated");
   } else {
     button.classList.remove("selected-item--selected");
-    button.classList.add(" data-item__icon--rotated");
+    button.classList.add("data-item__icon--rotated");
   }
 }
 
