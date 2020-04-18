@@ -2299,7 +2299,7 @@ date,state,fips,cases,deaths
 2020-04-13,Michigan,26,25487,1601
 2020-04-13,Minnesota,27,1650,70
 2020-04-13,Mississippi,28,2942,98
-2020-04-13,Missouri,29,4388,137
+2020-04-13,Missouri,29,4388,136
 2020-04-13,Montana,30,394,7
 2020-04-13,Nebraska,31,871,19
 2020-04-13,Nevada,32,3036,114
@@ -2307,7 +2307,7 @@ date,state,fips,cases,deaths
 2020-04-13,New Jersey,34,64584,2443
 2020-04-13,New Mexico,35,1345,31
 2020-04-13,New York,36,195031,10056
-2020-04-13,North Carolina,37,4815,91
+2020-04-13,North Carolina,37,4788,91
 2020-04-13,North Dakota,38,331,9
 2020-04-13,Northern Mariana Islands,69,11,2
 2020-04-13,Ohio,39,6975,274
@@ -2355,7 +2355,7 @@ date,state,fips,cases,deaths
 2020-04-14,Michigan,26,26844,1766
 2020-04-14,Minnesota,27,1695,79
 2020-04-14,Mississippi,28,3087,111
-2020-04-14,Missouri,29,4686,152
+2020-04-14,Missouri,29,4686,151
 2020-04-14,Montana,30,399,7
 2020-04-14,Nebraska,31,931,21
 2020-04-14,Nevada,32,3137,130
@@ -2363,7 +2363,7 @@ date,state,fips,cases,deaths
 2020-04-14,New Jersey,34,68824,2805
 2020-04-14,New Mexico,35,1407,36
 2020-04-14,New York,36,202208,10834
-2020-04-14,North Carolina,37,5024,116
+2020-04-14,North Carolina,37,4992,116
 2020-04-14,North Dakota,38,341,9
 2020-04-14,Northern Mariana Islands,69,13,2
 2020-04-14,Ohio,39,7280,324
@@ -2411,7 +2411,7 @@ date,state,fips,cases,deaths
 2020-04-15,Michigan,26,27893,1919
 2020-04-15,Minnesota,27,1809,87
 2020-04-15,Mississippi,28,3360,122
-2020-04-15,Missouri,29,4895,165
+2020-04-15,Missouri,29,4895,164
 2020-04-15,Montana,30,404,7
 2020-04-15,Nebraska,31,995,22
 2020-04-15,Nevada,32,3212,137
