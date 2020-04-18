@@ -1,3 +1,18 @@
+const dataParamNames = {
+  date: "Date",
+  cases: "Cases",
+  deaths: "Deaths",
+  newCases: "New Cases",
+  newDeaths: "New Deaths",
+  casesAvg: "Average Cases",
+  deathsAvg: "Average Deaths",
+  newCasesAvg: "Average New Cases",
+  newDeathsAvg: "Average New Deaths",
+  mortality: "Mortality Rate",
+  casesPop: "Cases % of Population",
+  deathsPop: "Deaths % of Population",
+};
+
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -140,7 +155,25 @@ L2.5,8.2L1.7,7.4L4.1,5L1.7,2.6l0.8-0.8l2.4,2.4l2.4-2.4l0.8,0.8L5.8,5L8.2,7.4z"
 </button>`;
 }
 
-export function dataGenerate(data, dataParam) {
+export function colorGenerate() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+const lineStyles = {
+  cases: { point: "circle", line: 2 },
+  casesAvg: { point: "circle", line: 4 },
+  deaths: { point: "cross", line: 2 },
+  deathsAvg: { point: "cross", line: 4 },
+  newCases: { point: "crossRot", line: 2 },
+  newCasesAvg: { point: "crossRot", line: 4 },
+  newDeaths: { point: "rect", line: 2 },
+  newDeathsAvg: { point: "rect", line: 4 },
+  casesPop: { point: "star", line: 2 },
+  deathsPop: { point: "triangle", line: 2 },
+  mortality: { point: "line", line: 2 },
+};
+
+export function dataGenerate(data, dataParam, borderColor) {
   const processedDataArr = data.data.map(d => {
     let dataItem = d[dataParam];
     if (
@@ -156,10 +189,14 @@ export function dataGenerate(data, dataParam) {
     };
   });
   return {
-    label: data.name,
+    id: data.name,
+    label: `${data.name}, ${dataParamNames[dataParam]}`,
     data: processedDataArr,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    borderColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
+    borderColor: borderColor,
+    pointStyle: lineStyles[dataParam].point,
+    pointRadius: 3,
+    borderWidth: lineStyles[dataParam].line,
   };
 }
 

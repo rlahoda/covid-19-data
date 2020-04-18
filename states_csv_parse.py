@@ -45,10 +45,58 @@ def states_parse():
                 if (
                     state in jsonData["states"]
                 ):  # if the item already exists in the dict
-                    dataLength = len(jsonData["states"][state]["data"])
-                    previousData = jsonData["states"][state]["data"][dataLength - 1]
+                    dataArr = jsonData["states"][state]["data"]
+                    dataLength = len(dataArr)
+                    previousData = dataArr[dataLength - 1]
                     newCases = cases - previousData["cases"]
                     newDeaths = deaths - previousData["deaths"]
+                    avgCases = 0
+                    avgDeaths = 0
+                    avgNewCases = 0
+                    avgNewDeaths = 0
+                    if dataLength > 4:
+                        avgCases = (
+                            cases
+                            + dataArr[dataLength - 1]["cases"]
+                            + dataArr[dataLength - 2]["cases"]
+                            + dataArr[dataLength - 3]["cases"]
+                            + dataArr[dataLength - 4]["cases"]
+                        ) / 5
+                        avgDeaths = (
+                            deaths
+                            + dataArr[dataLength - 1]["deaths"]
+                            + dataArr[dataLength - 2]["deaths"]
+                            + dataArr[dataLength - 3]["deaths"]
+                            + dataArr[dataLength - 4]["deaths"]
+                        ) / 5
+                        avgNewCases = (
+                            newCases
+                            + dataArr[dataLength - 1]["newCases"]
+                            + dataArr[dataLength - 2]["newCases"]
+                            + dataArr[dataLength - 3]["newCases"]
+                            + dataArr[dataLength - 4]["newCases"]
+                        ) / 5
+                        avgNewDeaths = (
+                            newDeaths
+                            + dataArr[dataLength - 1]["newDeaths"]
+                            + dataArr[dataLength - 2]["newDeaths"]
+                            + dataArr[dataLength - 3]["newDeaths"]
+                            + dataArr[dataLength - 4]["newDeaths"]
+                        ) / 5
+                    else:
+                        cumCases = cases
+                        cumDeaths = deaths
+                        cumNewCases = newCases
+                        cumNewDeaths = newDeaths
+                        for i in dataArr:
+                            cumCases = cumCases + i["cases"]
+                            cumDeaths = cumDeaths + i["deaths"]
+                            cumNewCases = cumNewCases + i["newCases"]
+                            cumNewDeaths = cumNewDeaths + i["newDeaths"]
+                        avgCases = cumCases / dataLength
+                        avgDeaths = cumDeaths / dataLength
+                        avgNewCases = cumNewCases / dataLength
+                        avgNewDeaths = cumNewDeaths / dataLength
                     jsonData["states"][state]["casesPop"] = (
                         float((cases / population) * 100)
                         if population > 0 and cases > 0
@@ -70,6 +118,10 @@ def states_parse():
                             "deaths": deaths,
                             "newCases": newCases,
                             "newDeaths": newDeaths,
+                            "casesAvg": avgCases,
+                            "deathsAvg": avgDeaths,
+                            "newCasesAvg": avgNewCases,
+                            "newDeathsAvg": avgNewDeaths,
                             "mortality": float((deaths / cases) * 100)
                             if cases > 0 and deaths > 0
                             else 0,
@@ -120,6 +172,10 @@ def states_parse():
                                     "deaths": deaths,
                                     "newCases": 0,
                                     "newDeaths": deaths,
+                                    "casesAvg": newCases,
+                                    "deathsAvg": newDeaths,
+                                    "newCasesAvg": newCases,
+                                    "newDeathsAvg": newDeaths,
                                     "mortality": float((deaths / cases) * 100),
                                     "casesPop": float((cases / population) * 100)
                                     if population > 0 and cases > 0
@@ -153,8 +209,12 @@ def states_parse():
                                     "date": date + "T12:00:00Z",
                                     "cases": cases,
                                     "deaths": deaths,
-                                    "newCases": 0,
+                                    "newCases": cases,
                                     "newDeaths": 0,
+                                    "casesAvg": cases,
+                                    "deathsAvg": 0,
+                                    "newCasesAvg": cases,
+                                    "newDeathsAvg": 0,
                                     "mortality": 0,
                                     "casesPop": float((cases / population) * 100)
                                     if population > 0 and cases > 0

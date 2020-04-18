@@ -1,9 +1,18 @@
 import { countries } from "./data.js";
-import { dataCard, button, dataGenerate, filters } from "./shared.js";
+import {
+  dataCard,
+  button,
+  dataGenerate,
+  filters,
+  colorGenerate,
+} from "./shared.js";
 import sort from "./sort.js";
 
-let dataParam = "cases";
+const initialData = countries.countries;
+const initialDataArr = Object.values(initialData);
 let dataItems = Object.keys(countries.countries);
+let dataParam = ["cases"];
+let multiData = false;
 let sortParam = "name";
 let sortOrder = "az";
 let dataFilters = {
@@ -28,7 +37,7 @@ function setInitialLimits() {
   let casesMax = 0;
   let deathsMax = 0;
 
-  Object.values(countries.countries).map(c => {
+  initialDataArr.map(c => {
     if (c.population > popMax) {
       popMax = c.population;
     }
@@ -77,6 +86,11 @@ const chart = new Chart(ctx, {
     },
     aspectRatio: 2,
     scales: {
+      yAxes: [
+        {
+          type: "linear",
+        },
+      ],
       xAxes: [
         {
           type: "time",
@@ -114,13 +128,17 @@ function checkGenerate() {
 function chartGenerate() {
   const sortedData = dataItems.sort();
   const buttonsArr = [];
-  const chartData = sortedData.map(state => {
-    const stats = countries.countries[state];
-    const stateData = dataGenerate(stats, dataParam);
-
-    buttonsArr.push(button(state, stateData.borderColor));
-    return stateData;
+  const chartData = [];
+  sortedData.map(state => {
+    const borderColor = colorGenerate();
+    buttonsArr.push(button(state, borderColor));
+    dataParam.map(param => {
+      const stats = initialData[state];
+      const stateData = dataGenerate(stats, param, borderColor);
+      chartData.push(stateData);
+    });
   });
+
   chart.data.datasets = chartData;
   const selectedContainer = document.querySelector("#chartSelected");
   selectedContainer.innerHTML = buttonsArr.join("");
@@ -134,11 +152,49 @@ function dataSelectButtons() {
 
   for (const button of selectButtons) {
     button.addEventListener("click", dataTypeSet);
+    if (multiData) {
+      if (button.classList.contains("data-item__icon--hidden")) {
+        button.classList.remove("data-item__icon--hidden");
+      }
+      if (!button.classList.contains("data-item__icon--rotated")) {
+        button.classList.add("data-item__icon--rotated");
+      }
+    } else {
+      if (!button.classList.contains("data-item__icon--hidden")) {
+        button.classList.add("data-item__icon--hidden");
+      }
+      if (button.classList.contains("data-item__icon--rotated")) {
+        button.classList.remove("data-item__icon--rotated");
+      }
+    }
+  }
+}
+
+function multiDataButton() {
+  const button = document.querySelector("#select-multi-data");
+  button.addEventListener("click", multiDataSwap);
+  if (multiData) {
+    button.classList.add("selected-item--selected");
+  } else {
+    button.classList.remove("selected-item--selected");
+  }
+}
+
+function multiDataSwap() {
+  multiData = !multiData;
+  dataSelectButtons();
+  const button = document.querySelector("#select-multi-data");
+  if (multiData) {
+    button.classList.add("selected-item--selected");
+    button.classList.remove("data-item__icon--rotated");
+  } else {
+    button.classList.remove("selected-item--selected");
+    button.classList.add("data-item__icon--rotated");
   }
 }
 
 function dataCards() {
-  const statesArr = Object.values(countries.countries);
+  const statesArr = Object.values(initialData);
   const sortedStates = sort(statesArr, sortParam, sortOrder);
   let filteredPopMin = sortedStates.filter(
     i => i.population >= dataFilters.popMin
@@ -207,14 +263,17 @@ function sortTypeSet(event) {
 function dataAdd(event) {
   const id = event.target.value;
   if (id === "all") {
-    const itemList = Object.keys(countries.countries);
+    const itemList = Object.keys(initialData);
     dataItems = itemList.sort();
     chartGenerate();
   } else if (!dataItems.includes(id)) {
-    const stats = countries.countries[id];
-    const dataSeries = dataGenerate(stats, dataParam);
+    const stats = initialData[id];
     const dataSets = [...chart.data.datasets];
-    dataSets.push(dataSeries);
+    dataParam.map(param => {
+      const borderColor = colorGenerate();
+      const stateData = dataGenerate(stats, param, borderColor);
+      dataSets.push(stateData);
+    });
     chart.data.datasets = sort(dataSets, "label", "az");
     chart.update();
     const sortedItems = [...dataItems, id];
@@ -226,24 +285,46 @@ function dataAdd(event) {
 }
 function dataTypeSet(event) {
   const id = event.target.value;
-  if (dataParam !== id) {
-    dataParam = id;
+  if (!dataParam.includes(id)) {
+    if (multiData) {
+      dataParam.push(id);
+    } else {
+      dataParam = [id];
+    }
     chartGenerate();
-    const activeButton = document.querySelectorAll(".js-data-select-button");
-    for (const button of activeButton) {
-      button.classList.remove("selected-item--selected");
+  } else {
+    if (multiData) {
+      const updatedData = dataParam.filter(i => i !== id);
+      dataParam = [...updatedData];
+    } else {
+      dataParam = [id];
+    }
+    chartGenerate();
+  }
+  const activeButton = document.querySelectorAll(".js-data-select-button");
+  for (const button of activeButton) {
+    if (dataParam.includes(button.value)) {
+      if (!button.classList.contains("selected-item--selected")) {
+        button.classList.add("selected-item--selected");
+      }
+      if (multiData) {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+    } else {
+      if (button.classList.contains("selected-item--selected")) {
+        button.classList.remove("selected-item--selected");
+      }
       button.disabled = false;
     }
-    const cardsContainer = document.querySelector(`#${event.target.id}`);
-    cardsContainer.classList.add("selected-item--selected");
-    cardsContainer.disabled = true;
   }
 }
 
 function dataClear(event) {
   const id = event.target.value;
   if (dataItems.includes(id)) {
-    const newArr = chart.data.datasets.filter(i => i.label !== id);
+    const newArr = chart.data.datasets.filter(i => i.id !== id);
     const sortedArr = newArr.sort();
     chart.data.datasets = sortedArr;
     const filteredItems = dataItems.filter(i => i !== id);
@@ -302,3 +383,4 @@ dataSelectButtons();
 sortSelectButtons();
 setInitialLimits();
 // createFilters();
+multiDataButton();

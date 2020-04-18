@@ -10,6 +10,8 @@ def world_data_fetch():
     url = "http://opendata.ecdc.europa.eu/covid19/casedistribution/csv"
     wget.download(url, "world-countries.csv")
     print("ECDC data fetched")
+    os.system("git add .")
+    os.system('git commit -m "updated world data"')
 
 
 world_data_fetch()
