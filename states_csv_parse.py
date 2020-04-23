@@ -4,6 +4,11 @@ import csv
 
 def states_parse():
     print("Starting US states data")
+    print("Clearing old JSON data")
+    with open("us-states.json", "w") as initialFile:
+        initialFile.write("{}")
+        initialFile.close()
+    print("Old JSON data cleared")
     with open("state-population.json") as popFile:
         popData = json.load(popFile)
         popFile.close()
@@ -230,3 +235,6 @@ def states_parse():
         with open("us-states.json", "w") as jsonfile:
             json.dump(jsonData, jsonfile)
             print("US States data json created")
+
+
+states_parse()

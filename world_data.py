@@ -19,6 +19,11 @@ def stringClean(s):
 
 def countries_parse():
     print("Starting world data")
+    print("Clearing old JSON data")
+    with open("world-countries.json", "w") as initialFile:
+        initialFile.write("{}")
+        initialFile.close()
+    print("Old JSON data cleared")
     # Open file
     with open("world-countries.csv") as csvfile:
         csvData = csv.reader(csvfile, delimiter=",", quotechar='"')

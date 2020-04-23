@@ -4,6 +4,11 @@ import csv
 
 def counties_parse():
     print("Starting US counties data")
+    print("Clearing old JSON data")
+    with open("us-counties.json", "w") as initialFile:
+        initialFile.write("{}")
+        initialFile.close()
+    print("Old JSON data cleared")
     # Open csv file
     with open("us-counties.csv") as csvfile:
         csvData = csv.reader(csvfile, delimiter=",", quotechar="|")
