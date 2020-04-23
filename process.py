@@ -1,5 +1,5 @@
 import json
-
+import os
 from states_csv_parse import states_parse
 from counties_csv_parse import counties_parse
 from world_data import countries_parse
@@ -38,6 +38,9 @@ def move_convert():
                 dataFile.write(fileData)
                 dataFile.close()
                 print("data.js written")
+    os.system("git add .")
+    os.system('git commit -m "updated json data"')
+    os.system("git push")
 
 
 move_convert()
