@@ -15,6 +15,9 @@ let dataParam = ["cases"];
 let multiData = false;
 let sortParam = "name";
 let sortOrder = "az";
+let firstDate = new Date();
+let chartStartDate = new Date();
+let chartEndDate = new Date();
 let dataFilters = {
   popMin: 0,
   popMax: 10000000000,
@@ -46,6 +49,11 @@ function setInitialLimits() {
     }
     if (c.deaths > deathsMax) {
       deathsMax = c.deaths;
+    }
+    const date = new Date(c.firstCase);
+    if (date < firstDate) {
+      firstDate = date;
+      chartStartDate = date;
     }
   });
 
@@ -173,6 +181,99 @@ function multiDataButton() {
   } else {
     button.classList.remove("selected-item--selected");
   }
+}
+
+function chartDateStartInit() {
+  const button = document.querySelector("#chart-start-date");
+  const button3 = document.querySelector("#chart-end-date");
+  const button2 = document.querySelector("#chart-start-date-reset");
+  button.addEventListener("change", chartDateStart);
+  button3.addEventListener("change", chartDateEnd);
+  button2.addEventListener("click", chartDateReset);
+  button.value = chartStartDate;
+  button3.value = chartStartDate;
+}
+function chartDateReset() {
+  const button = document.querySelector("#chart-start-date");
+  const button3 = document.querySelector("#chart-end-date");
+  button.value = firstDate;
+  button3.value = new Date();
+  chart.options = {
+    legend: {
+      display: false,
+    },
+    aspectRatio: 2,
+    scales: {
+      xAxes: [
+        {
+          type: "time",
+          time: {
+            tooltipFormat: "MMMM D, YYYY",
+            unit: "day",
+            displayFormats: { day: "MM/D" },
+          },
+        },
+      ],
+    },
+  };
+  chart.update();
+}
+
+function chartDateStart() {
+  const button = document.querySelector("#chart-start-date");
+  chartStartDate = button.value;
+  console.log(chartStartDate);
+  console.log(chartEndDate);
+  chart.options = {
+    legend: {
+      display: false,
+    },
+    aspectRatio: 2,
+    scales: {
+      xAxes: [
+        {
+          type: "time",
+          time: {
+            min: new Date(chartStartDate),
+            max: new Date(chartEndDate),
+            tooltipFormat: "MMMM D, YYYY",
+            unit: "day",
+            displayFormats: { day: "MM/D" },
+          },
+        },
+      ],
+    },
+  };
+  chart.update();
+}
+
+function chartDateEnd() {
+  const button = document.querySelector("#chart-end-date");
+
+  chartEndDate = button.value;
+  console.log(chartStartDate);
+  console.log(chartEndDate);
+  chart.options = {
+    legend: {
+      display: false,
+    },
+    aspectRatio: 2,
+    scales: {
+      xAxes: [
+        {
+          type: "time",
+          time: {
+            min: new Date(chartStartDate),
+            max: new Date(chartEndDate),
+            tooltipFormat: "MMMM D, YYYY",
+            unit: "day",
+            displayFormats: { day: "MM/D" },
+          },
+        },
+      ],
+    },
+  };
+  chart.update();
 }
 
 function multiDataSwap() {
@@ -379,3 +480,4 @@ sortSelectButtons();
 setInitialLimits();
 // createFilters();
 multiDataButton();
+chartDateStartInit();

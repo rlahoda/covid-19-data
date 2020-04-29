@@ -533,6 +533,27 @@
       </div>
       <div class="chart-container">
         <canvas id="dataChart"></canvas>
+        <div class="shadow-container chart-filters">
+          <h3 class="filters-header">
+            Chart Start Date:
+          </h3>
+          <input
+            type="date"
+            name="start-date"
+            id="chart-start-date"
+            min="2020-01-01"
+          />
+          <h3 class="filters-header">
+            Chart End Date:
+          </h3>
+          <input
+            type="date"
+            name="end-date"
+            id="chart-end-date"
+            min="2020-01-01"
+          />
+          <button id="chart-start-date-reset">Reset Date Range</button>
+        </div>
         <div class="chart__selected-items">
           <button
             value="all"
