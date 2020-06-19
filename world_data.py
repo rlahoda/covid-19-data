@@ -33,7 +33,7 @@ def countries_parse():
         # iterate through csv
         for row in reversed(list(csvData)):  # iterate through the rows of the csv
             d = row[0]
-            if d != "dateRep":  # check to make sure it's not the first row
+            if row[1].isdigit():  # check to make sure it's not the first row
                 day = row[1]
                 if int(row[1]) < 10:
                     day = "0" + day
@@ -44,7 +44,7 @@ def countries_parse():
                 state = stringClean(row[6])
                 dateStr = year + "-" + month + "-" + day + "T12:00:00Z"
                 newCases = int(row[4])
-                newDeaths = int(row[5])
+                newDeaths = int(row[5]) if row[5].lstrip("-").isdigit() else 0
                 population = 0
                 if row[9] != "":
                     population = int(row[9])
